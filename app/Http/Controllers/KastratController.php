@@ -11,7 +11,8 @@ class KastratController extends Controller
      */
     public function index()
     {
-        return view('kastrat.index');
+        // return view('kastrat.index');
+        return 'hello world';
     }
 
     /**
@@ -41,9 +42,9 @@ class KastratController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        return $id;
     }
 
     /**
