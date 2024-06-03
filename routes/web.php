@@ -20,11 +20,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/kastrat', [KastratController::class, 'index'])->name('kastrat.index');
+Route::get('/kastrat/create', [KastratController::class, 'create'])->name('kastrat.create');
+Route::post('/kastrat', [KastratController::class, 'store'])->name('kastrat.store');
 Route::get('/kastrat/{id}', [KastratController::class, 'edit'])->name('kastrat.edit');
 Route::patch('/kastrat', [KastratController::class, 'update'])->name('kastrat.update');
 Route::delete('/kastrat', [KastratController::class, 'destroy'])->name('kastrat.destroy');
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
 Route::get('/admin/{id}', [AdminController::class, 'edit'])->name('admin.edit');
 Route::patch('/admin', [AdminController::class, 'update'])->name('admin.update');
 Route::delete('/admin', [AdminController::class, 'destroy'])->name('admin.destroy');

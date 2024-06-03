@@ -11,8 +11,7 @@ class KastratController extends Controller
      */
     public function index()
     {
-        // return view('kastrat.index');
-        return 'hello world';
+        return view('pages.kastrat.index');
     }
 
     /**
@@ -20,7 +19,7 @@ class KastratController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.kastrat.create');
     }
 
     /**
