@@ -24,23 +24,53 @@ class Kastrat extends Component
     public function store()
     {
         $validateData = $this->validate();
-
+        
         $file = $this->file[0];
-
+        
         $filename = auth()->user()->name . "-file-" . uniqid() . '.' . $file["extension"];
 
         $filePath = Storage::putFileAs('public/file', new File($file['path']), $filename);
-
+        
         ModelsKastrat::create([
             "judul" => $validateData['judul'],
             "keterangan" => $validateData['keterangan'],
             "file" => $filePath
         ]);
 
-        flash("Kastrat berhasil ditambahkan", 'success');
+        
+        flash("Kastrat berhasil menambahkan data", 'success');
+        
+        $this->reset('judul', 'keterangan', 'file');
+    }
+
+    public function update($id)
+    {
+        $validateData = $this->validate();
+        $kastrat = ModelsKastrat::findOrFail($id);
+
+        if (isset($this->file[0])) {
+            $file = $this->file[0];
+            $filename = auth()->user()->name . "-file-" . uniqid() . '.' . $file["extension"];
+            $filePath = Storage::putFileAs('public/file', new File($file['path']), $filename);
+
+            // Delete the old file if a new file is uploaded
+            if ($kastrat->file) {
+                Storage::delete($kastrat->file);
+            }
+
+            $kastrat->file = $filePath;
+        }
+
+        $kastrat->update([
+            "judul" => $validateData['judul'],
+            "keterangan" => $validateData['keterangan'],
+        ]);
+
+        flash("Data berhasil diperbarui", 'success');
 
         $this->reset('judul', 'keterangan', 'file');
     }
+
 
 
     public function render()
